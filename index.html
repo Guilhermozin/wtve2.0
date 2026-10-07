@@ -903,29 +903,45 @@
             }
         };
 
+        // Retorna os dados da Type Memory já adaptados à Wild Coin ativa.
+        // Ex.: Panther + Fire -> memory_fire_panther.png
+        // Mantemos os dados da Wolf como base e trocamos apenas a arte do traje.
+        function getMemoryData(memoryKey) {
+            const base = memoryDatabase[memoryKey];
+            if (!base) return null;
+
+            // A chave usada no select é "eletric", mas o arquivo usa "electric".
+            const fileKey = memoryKey === 'eletric' ? 'electric' : memoryKey;
+            const riderImg = currentWildCoin === 'wolf'
+                ? base.riderImg
+                : `memory_${fileKey}_${currentWildCoin}.png`;
+
+            return { ...base, riderImg };
+        }
+
         function updateMemoryInfo() {
             const m1 = document.getElementById('memory1').value;
             const m2 = document.getElementById('memory2').value;
             const activeCoin = wildCoinData[currentWildCoin];
 
-            let data1 = (m1 === "None" || !memoryDatabase[m1]) ? {
+            let data1 = (m1 === "None" || !getMemoryData(m1)) ? {
                 name: `${activeCoin.name} Form (Base)`,
                 weapon: activeCoin.weaponName,
                 cardImg: activeCoin.weaponImg,
                 concept: activeCoin.concept
-            } : memoryDatabase[m1];
+            } : getMemoryData(m1);
 
             document.getElementById('info1-name').innerText = data1.name;
             document.getElementById('info1-weapon').innerText = data1.weapon;
             document.getElementById('info1-img').src = data1.cardImg || activeCoin.baseImg;
             document.getElementById('info1-concept').innerText = data1.concept;
 
-            let data2 = (m2 === "None" || !memoryDatabase[m2]) ? {
+            let data2 = (m2 === "None" || !getMemoryData(m2)) ? {
                 name: `${activeCoin.name} Form (Base)`,
                 weapon: activeCoin.weaponName,
                 cardImg: activeCoin.weaponImg,
                 concept: activeCoin.concept
-            } : memoryDatabase[m2];
+            } : getMemoryData(m2);
 
             document.getElementById('info2-name').innerText = data2.name;
             document.getElementById('info2-weapon').innerText = data2.weapon;
@@ -1049,7 +1065,7 @@
         // As combinações clássicas mantêm seus nomes; as demais recebem um
         // nome automático e usam as duas imagens reais das Memories.
         function getBestMatchData(m1, m2) {
-            if (!memoryDatabase[m1] || !memoryDatabase[m2] || m1 === "None" || m2 === "None" || m1 === m2) {
+            if (!getMemoryData(m1) || !getMemoryData(m2) || m1 === "None" || m2 === "None" || m1 === m2) {
                 return null;
             }
 
@@ -1067,7 +1083,7 @@
         }
 
         function createGeneratedBestMatch(m1, m2, prohibited = false) {
-            if (!memoryDatabase[m1] || !memoryDatabase[m2]) {
+            if (!getMemoryData(m1) || !getMemoryData(m2)) {
                 throw new Error('Type Memories inválidas para Best Match.');
             }
 
@@ -1081,13 +1097,13 @@
             right.className = 'bm-half bm-half-right';
 
             const leftImg = document.createElement('img');
-            leftImg.src = memoryDatabase[m1].riderImg;
-            leftImg.alt = `${memoryDatabase[m1].name} - lado esquerdo`;
+            leftImg.src = getMemoryData(m1).riderImg;
+            leftImg.alt = `${getMemoryData(m1).name} - lado esquerdo`;
             leftImg.draggable = false;
 
             const rightImg = document.createElement('img');
-            rightImg.src = memoryDatabase[m2].riderImg;
-            rightImg.alt = `${memoryDatabase[m2].name} - lado direito`;
+            rightImg.src = getMemoryData(m2).riderImg;
+            rightImg.alt = `${getMemoryData(m2).name} - lado direito`;
             rightImg.draggable = false;
 
             left.appendChild(leftImg);
@@ -1269,15 +1285,15 @@
                 } 
                 else if (m1 !== "None" && m2 === "None") {
                     splitContainer.style.opacity = '1';
-                    armorLeft.style.backgroundImage = `url('${memoryDatabase[m1].riderImg}')`;
-                    armorRight.style.backgroundImage = `url('${memoryDatabase[m1].riderImg}')`;
+                    armorLeft.style.backgroundImage = `url('${getMemoryData(m1).riderImg}')`;
+                    armorRight.style.backgroundImage = `url('${getMemoryData(m1).riderImg}')`;
                     log(`> FULL HUNT! ${activeCoin.name.toUpperCase()} FORM & <span class="log-highlight">${m1.toUpperCase()}</span>!`);
                     speakDriverVoice(`${activeCoin.name} and ${m1}!`);
                 } 
                 else if (m1 === "None" && m2 !== "None") {
                     splitContainer.style.opacity = '1';
-                    armorLeft.style.backgroundImage = `url('${memoryDatabase[m2].riderImg}')`;
-                    armorRight.style.backgroundImage = `url('${memoryDatabase[m2].riderImg}')`;
+                    armorLeft.style.backgroundImage = `url('${getMemoryData(m2).riderImg}')`;
+                    armorRight.style.backgroundImage = `url('${getMemoryData(m2).riderImg}')`;
                     log(`> FULL HUNT! ${activeCoin.name.toUpperCase()} FORM & <span class="log-highlight">${m2.toUpperCase()}</span>!`);
                     speakDriverVoice(`${activeCoin.name} and ${m2}!`);
                 } 
@@ -1307,8 +1323,8 @@
                         checkInfinitePrimeUnlock();
                     } else {
                         splitContainer.style.opacity = '1';
-                        armorLeft.style.backgroundImage = `url('${memoryDatabase[m1].riderImg}')`;
-                        armorRight.style.backgroundImage = `url('${memoryDatabase[m2].riderImg}')`;
+                        armorLeft.style.backgroundImage = `url('${getMemoryData(m1).riderImg}')`;
+                        armorRight.style.backgroundImage = `url('${getMemoryData(m2).riderImg}')`;
 
                         log(`> MISTURA INSTÁVEL: ${m1.toUpperCase()} + ${m2.toUpperCase()}`);
                         speakDriverVoice("Unstable match.");
