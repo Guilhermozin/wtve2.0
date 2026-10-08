@@ -440,7 +440,22 @@
             border-color: #ff0000 !important;
         }
         
-        /* --- ÁREA DE CONTROLES --- */
+
+        /* --- PAINEL DO VEÍCULO TÁTICO --- */
+        .vehicle-panel{width:100%;max-width:575px;margin-bottom:15px;background:#0f1016;border:2px solid #00ffcc;border-radius:15px;padding:12px;box-sizing:border-box;box-shadow:0 0 18px rgba(0,255,204,.16)}
+        .vehicle-panel h3{color:#00ffcc;margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;text-align:center;border-bottom:1px dashed #00ffcc;padding-bottom:5px}
+        .vehicle-content{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:10px;align-items:stretch}
+        .vehicle-image-wrap{min-height:190px;background:#07070b;border:1px solid #333;border-radius:9px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+        .vehicle-image{width:100%;height:100%;max-height:245px;object-fit:contain;display:block;filter:brightness(1.05) contrast(1.08) saturate(1.08)}
+        .vehicle-data{display:flex;flex-direction:column;gap:5px}
+        .vehicle-name{color:#fff;font-size:15px;font-weight:bold;text-transform:uppercase;letter-spacing:1px}
+        .vehicle-role{color:#ffcc00;font-size:10px;font-weight:bold;text-transform:uppercase;line-height:1.25}
+        .vehicle-data-row{background:#181922;border:1px solid #2f3039;border-radius:6px;padding:5px 7px;font-size:9px;line-height:1.3}
+        .vehicle-data-row span{color:#00ffcc;font-weight:bold}
+        .vehicle-concept{margin-top:2px;color:#a9a9b2;font-size:9px;line-height:1.35;font-style:italic}
+        @media (max-width:520px){.vehicle-content{grid-template-columns:1fr}.vehicle-image-wrap{min-height:170px}}
+
+        /* --- ÁREA DE CONTROLES --- --- */
         .controls {
             width: 100%;
             max-width: 575px;
@@ -628,6 +643,25 @@
         </div>
     </div>
 
+
+    <!-- PAINEL DO VEÍCULO TÁTICO -->
+    <div class="vehicle-panel">
+        <h3>W-Type Tactical Vehicle</h3>
+        <div class="vehicle-content">
+            <div class="vehicle-image-wrap">
+                <img id="vehicleImage" class="vehicle-image" src="wolf_speeder.png" alt="Wolf Speeder">
+            </div>
+            <div class="vehicle-data">
+                <div class="vehicle-name" id="vehicleName">Wolf Speeder</div>
+                <div class="vehicle-role" id="vehicleRole">Veículo de transporte tático e suporte de campo</div>
+                <div class="vehicle-data-row"><span>Função:</span> <b id="vehicleFunction">Transporte de alta performance, perseguição e suporte ao W-Type.</b></div>
+                <div class="vehicle-data-row"><span>Integração:</span> <b id="vehicleIntegration">Conecta-se ao W-Type Driver e sincroniza com a Wild Coin ativa.</b></div>
+                <div class="vehicle-data-row"><span>Desempenho:</span> <b id="vehiclePerformance">Velocidade hipersônica, alta estabilidade e manobras evasivas em terrenos acidentados.</b></div>
+                <div class="vehicle-concept" id="vehicleConcept">Conceito: motocicleta robusta e aerodinâmica, em preto tático e gunmetal, com refletores energéticos que acompanham o Best Match ativo.</div>
+            </div>
+        </div>
+    </div>
+
     <div class="controls">
         <div class="control-group checkbox-group">
             <input type="checkbox" id="chkCoinInserted" checked> 
@@ -724,7 +758,8 @@
                 infiniteImg: "wolf_infinite_prime.png",
                 weaponName: "Wolf Calibur",
                 weaponImg: "wolf_calibur.png",
-                concept: "Foco: Versatilidade tática universal, canalização de energias duplas e combate híbrido com duplo slot."
+                concept: "Foco: Versatilidade tática universal, canalização de energias duplas e combate híbrido com duplo slot.",
+                 vehicle: { name:"Wolf Speeder", image:"wolf_speeder.png", role:"Veículo de transporte tático e suporte de campo", function:"Transporte de alta performance, perseguição e suporte ao W-Type.", integration:"Conecta-se ao W-Type Driver e sincroniza com a Wild Coin ativa.", performance:"Velocidade hipersônica, alta estabilidade e manobras evasivas em terrenos acidentados.", concept:"Conceito: motocicleta robusta e aerodinâmica, em preto tático e gunmetal, com refletores energéticos que acompanham o Best Match ativo." }
             },
             panther: {
                 name: "Panther",
@@ -734,7 +769,8 @@
                 infiniteImg: "panther_infinite_prime.png",
                 weaponName: "Panther Claw",
                 weaponImg: "panther_claw.png",
-                concept: "Foco: Combate corpo a corpo, furtividade, velocidade extrema e ataques críticos de precisão."
+                concept: "Foco: Combate corpo a corpo, furtividade, velocidade extrema e ataques críticos de precisão.",
+                 vehicle: { name:"Panther Shadow", image:"panther_shadow.png", role:"Veículo de infiltração, perseguição e ataque de precisão", function:"Infiltração silenciosa, perseguição de alvos e suporte ofensivo de curta distância.", integration:"Sincroniza com os sistemas de furtividade e com a energia da Panther Coin.", performance:"Aceleração extrema, curvas de alta precisão, baixa assinatura e resposta instantânea.", concept:"Conceito: veículo de ataque furtivo inspirado em um predador, com perfil baixo, linhas agressivas e iluminação azul correspondente à forma Panther." }
             },
             bat: {
                 name: "Bat",
@@ -743,7 +779,8 @@
                 infiniteImg: "bat_infinite_prime.png",
                 weaponName: "Bat Fans",
                 weaponImg: "bat_fan.png",
-                concept: "Foco: Combate aéreo, defesa dinâmica, controle de espaço e ataques sônicos."
+                concept: "Foco: Combate aéreo, defesa dinâmica, controle de espaço e ataques sônicos.",
+                 vehicle: { name:"Bat Nightwing", image:"bat_nightwing.png", role:"Veículo aéreo de reconhecimento e suporte de combate", function:"Reconhecimento, mobilidade aérea, cobertura tática e controle de área.", integration:"Integra-se ao Bat System para sincronizar sensores, asas e emissores sônicos.", performance:"Voo de alta velocidade, manobras tridimensionais e evasão por mudanças rápidas de altitude.", concept:"Conceito: aeronave tática compacta inspirada em um morcego, com asas retráteis, sensores avançados e energia verde." }
             },
             cobra: {
                 name: "Cobra",
@@ -752,9 +789,24 @@
                 infiniteImg: "cobra_infinite_prime.png",
                 weaponName: "Cobra Whip Blade",
                 weaponImg: "cobra_whip.png",
-                concept: "Foco: Combate de médio alcance, precisão, controle de espaço e ataques imprevisíveis."
+                concept: "Foco: Combate de médio alcance, precisão, controle de espaço e ataques imprevisíveis.",
+                 vehicle: { name:"Cobra Drifter", image:"cobra_drifter.png", role:"Veículo de assalto tático e combate de médio alcance", function:"Perseguição, controle de território, ataques imprevisíveis e apoio de precisão.", integration:"Sincroniza com a Cobra Coin para ajustar tração, sensores e sistemas de ataque.", performance:"Alta agilidade, derrapagens controladas, mudanças bruscas de direção e estabilidade em alta velocidade.", concept:"Conceito: veículo de perfil alongado e agressivo, inspirado no movimento de uma cobra, com blindagem segmentada e energia púrpura." }
             }
         };
+
+
+        function updateVehiclePanel() {
+            const vehicle = wildCoinData[currentWildCoin].vehicle;
+            if (!vehicle) return;
+            document.getElementById('vehicleImage').src = vehicle.image;
+            document.getElementById('vehicleImage').alt = vehicle.name;
+            document.getElementById('vehicleName').innerText = vehicle.name;
+            document.getElementById('vehicleRole').innerText = vehicle.role;
+            document.getElementById('vehicleFunction').innerText = vehicle.function;
+            document.getElementById('vehicleIntegration').innerText = vehicle.integration;
+            document.getElementById('vehiclePerformance').innerText = vehicle.performance;
+            document.getElementById('vehicleConcept').innerText = vehicle.concept;
+        }
 
         function selectWildCoin(coinKey) {
             if (isSystemLocked) return;
@@ -770,6 +822,7 @@
             document.getElementById('layerOverload').style.backgroundImage = `url('${coinInfo.overloadImg}')`;
             document.getElementById('layerInfinitePrime').style.backgroundImage = `url('${coinInfo.infiniteImg}')`;
 
+            updateVehiclePanel();
             updateMemoryInfo();
             playSound('beep');
             log(`> Wild Coin alterada para: <span class="log-highlight">${coinInfo.name.toUpperCase()}</span>`);
@@ -954,6 +1007,7 @@
         // Isso evita que o painel permaneça mostrando a imagem do chassi antes
         // da primeira troca de Coin/Memory.
         document.addEventListener('DOMContentLoaded', () => {
+            updateVehiclePanel();
             updateMemoryInfo();
         });
 
